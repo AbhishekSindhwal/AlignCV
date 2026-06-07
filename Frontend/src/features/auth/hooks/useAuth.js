@@ -33,5 +33,5 @@ export const useAuth=()=>{
     }
 
 
-    return {user,loading,handleRegister,handleLogin,handleLogin}
+    return {user,loading,handleRegister,handleLogin,handleLogout}
 }
