@@ -5,18 +5,13 @@ const interviewReportModel=require("../models/interviewReport.model")
 
 async function generateInterViewRepostController(req,res){
     // const resumeFile=req.file
-
     const resumeContent= await (new pdfParse.PDFParse(Uint8Array.from(req.file.buffer))).getText()
     const {selfDescription,jobDescription}=req.body
-
-
-
     const interviewReportByAi = await generateInterviewReport({
         resume:resumeContent.text,
         selfDescription,
         jobDescription
     })
-    // console.log(interviewReportByAi)
 
     const interviewReport= await interviewReportModel.create({
         user:req.user.id,
@@ -25,7 +20,7 @@ async function generateInterViewRepostController(req,res){
         jobDescription,
         ...interviewReportByAi
     })
-
+    
     res.status(201).json({
         message:"Interview report generated successfully",
         interviewReport
