@@ -122,7 +122,11 @@ const interviewReportSchema = new mongoose.Schema({
     user:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"users"
-    }
+    },
+    title:{
+        type:String,
+        description:"The title of the job for which the interview report is generated."
+    },
 },{
     timestamps:true
 })
