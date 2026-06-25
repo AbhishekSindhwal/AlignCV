@@ -5,10 +5,6 @@ const api = axios.create({
     withCredentials: true
 })
 
-
-
-
-
 /**
  * @description Service to generate interview report based on user self description, resume an job description.
  */
@@ -31,7 +27,7 @@ export const generateInterviewReport = async ({ jobDescription, selfDescription,
  * @description Service to get interview report by interviewId.
  */
 
-export const getInterViewReportById= async (interviewId) => {
+export const getInterViewReportById = async (interviewId) => {
     const response = await api.get(`/api/interview/report/${interviewId}`)
     return response.data
 }

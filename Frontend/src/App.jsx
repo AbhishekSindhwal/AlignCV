@@ -5,13 +5,15 @@ import { InterviewProvider } from "./features/interview/interview.context"
 import { AuthProvider } from "./features/auth/auth.context"
 function App() {
   return (
-    <InterviewProvider>
 
 
-      <AuthProvider>
+
+    <AuthProvider>
+      <InterviewProvider>
         <RouterProvider router={router} />
-      </AuthProvider>
-    </InterviewProvider>
+      </InterviewProvider>
+    </AuthProvider>
+
   )
 }
 
