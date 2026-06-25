@@ -1,20 +1,36 @@
-import React, {useState,useRef} from 'react'
+import React, { useState, useRef } from 'react'
 import "../style/home.scss"
 import { useInterview } from '../hooks/useInterview'
+import { useNavigate } from 'react-router'
 
 
 const Home = () => {
 
-    const {loading,generateReport}=useInterview()
-    const [jobDescription,setJobDescription]=useState("")
-    const [selfDescription,setSelfDescription]=useState("")
-    const resumeInputRef=useRef()
+    const { loading, generateReport } = useInterview()
+    const [jobDescription, setJobDescription] = useState("")
+    const [selfDescription, setSelfDescription] = useState("")
+    const resumeInputRef = useRef()
 
+    const navigate = useNavigate()
 
+    const handleGenerateReport = async () => {
+        const resumeFile = resumeInputRef.current.files[0]
+        const data = await generateReport({ jobDescription, selfDescription, resumeFile })
+        console.log(data)
+        navigate(`/interview/${data._id}`)
+    }
+
+    if (loading) {
+        return (
+            <main className='loading-screen'>
+                <h1>Loading your interview plan</h1>
+            </main>
+        )
+    }
 
 
     return (
-         <div className='home-page'>
+        <div className='home-page'>
 
             {/* Page Header */}
             <header className='page-header'>
@@ -110,7 +126,7 @@ const Home = () => {
             </div>
 
             {/* Recent Reports List */}
-            {reports.length > 0 && (
+            {/* {reports.length > 0 && (
                 <section className='recent-reports'>
                     <h2>My Recent Interview Plans</h2>
                     <ul className='reports-list'>
@@ -123,7 +139,7 @@ const Home = () => {
                         ))}
                     </ul>
                 </section>
-            )}
+            )} */}
 
             {/* Page Footer */}
             <footer className='page-footer'>

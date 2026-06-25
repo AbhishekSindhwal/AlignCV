@@ -1,6 +1,8 @@
 import { getAllInterviewReports, generateInterviewReport, getInterViewReportById } from "../services/interview.api"
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { InterviewContext } from "../interview.context"
+
+import { useParams } from "react-router"
 
 
 
@@ -11,44 +13,67 @@ export const useInterview = () => {
         throw new Error("useInterview must be used within an InterviewProvider")
     }
 
+    const {interviewId}=useParams()
+
     const { loading, setLoading, report, setReport, reports, setReports } = context
 
     const generateReport = async ({ jobDescription, selfDescription, resumeFile }) => {
         setLoading(true)
+       let response=null 
         try {
-            const response = await generateInterviewReport({ jobDescription, selfDescription, resumeFile })
+            response = await generateInterviewReport({ jobDescription, selfDescription, resumeFile })
             setReport(response.interviewReport)
+
+            console.log("data is at hooks level"+reponse.interviewReport)
         } catch (error) {
             console.log(error)
         }finally{
             setLoading(false)
         }
+
+        return response.interviewReport
     }
 
     const getReportById =async(interviewId)=>{
         setLoading(true)
+        let response = null
         try{
-            const response = await getInterViewReportById(interviewId);
+             response = await getInterViewReportById(interviewId);
             setReport(response.interviewReport)
         }catch(error){
             console.log(error)
         }finally{
             setLoading(false)
         }
+        return response.interviewReport
     }
 
 
     const getReports = async()=>{
         setLoading(true)
+        let response=null
         try{
-            const response =await getAllInterviewReports()
+             response =await getAllInterviewReports()
             setReports(response.interviewReports)
         }catch(error){
             console.log(error)
         }finally{
             setLoading(false)
         }
+        return response.interviewReports
     }
+
+
+    useEffect(()=>{
+        if(interviewId){
+            getReportById(interviewId)
+        }else{
+            getReports()
+        }
+    },[interviewId])
+
+
+
 
 
     return {loading,report,reports,generateReport,getReportById,getReports}
