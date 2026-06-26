@@ -24,7 +24,7 @@ export const useInterview = () => {
             response = await generateInterviewReport({ jobDescription, selfDescription, resumeFile })
             setReport(response.interviewReport)
 
-            console.log("data is at hooks level"+reponse.interviewReport)
+            // console.log("data is at hooks level"+reponse.interviewReport)
         } catch (error) {
             console.log(error)
         }finally{

@@ -15,7 +15,7 @@ export const generateInterviewReport = async ({ jobDescription, selfDescription,
     formData.append("resume", resumeFile)
 
     const response = await api.post("/api/interview/", formData )
-    console.log("report is here at api level" +response.data)
+    // console.log("report is here at api level" +response.data)
     return response.data
 }
 

@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router'
 
 const Home = () => {
 
-    const { loading, generateReport } = useInterview()
+    const { loading, generateReport, reports } = useInterview()
     const [jobDescription, setJobDescription] = useState("")
     const [selfDescription, setSelfDescription] = useState("")
     const resumeInputRef = useRef()
@@ -126,7 +126,7 @@ const Home = () => {
             </div>
 
             {/* Recent Reports List */}
-            {/* {reports.length > 0 && (
+            {reports.length > 0 && (
                 <section className='recent-reports'>
                     <h2>My Recent Interview Plans</h2>
                     <ul className='reports-list'>
@@ -139,7 +139,7 @@ const Home = () => {
                         ))}
                     </ul>
                 </section>
-            )} */}
+            )}
 
             {/* Page Footer */}
             <footer className='page-footer'>
